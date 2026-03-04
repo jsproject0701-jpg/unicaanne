@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unica Anne — Music × Technology × Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-pink: #f2c4ce;
+    --blush: #e8a8b8;
+    --deep-green: #4a7c6a;
+    --sage: #7aab96;
+    --soft-green: #c8ddd7;
+    --warm-white: #faf8f5;
+    --grey: #9a9a9a;
+    --light-grey: #e8e6e2;
+    --charcoal: #2a2a2a;
+    --text: #1a1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--deep-green);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease, background 0.3s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid var(--blush);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  body:hover .cursor-ring { opacity: 1; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--deep-green); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 48px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--deep-green);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--charcoal);
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.5s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--blush);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--grey);
+    max-width: 340px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-sub span {
+    color: var(--deep-green);
+    font-weight: 400;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+      var(--soft-green) 0%,
+      var(--sky-pink) 45%,
+      #e8d5d8 80%,
+      var(--soft-green) 100%
+    );
+    animation: gradientShift 12s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(8deg) brightness(1.04); }
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+  }
+
+  .hero-circles {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    animation: rotateSlow linear infinite;
+  }
+
+  .circle:nth-child(1) { width: 300px; height: 300px; animation-duration: 40s; }
+  .circle:nth-child(2) { width: 450px; height: 450px; animation-duration: 60s; animation-direction: reverse; border-color: rgba(74,124,106,0.2); }
+  .circle:nth-child(3) { width: 600px; height: 600px; animation-duration: 80s; border-color: rgba(232,168,184,0.3); }
+
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-word {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    user-select: none;
+    bottom: 60px;
+    right: -20px;
+    line-height: 1;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+
+  .scroll-hint span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--sky-pink);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--deep-green);
+    animation: slideLine 2s ease infinite;
+  }
+  @keyframes slideLine { to { left: 100%; } }
+
+  /* Sections base */
+  section {
+    padding: 120px 48px;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--deep-green);
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--sky-pink);
+    display: inline-block;
+  }
+
+  /* Work section */
+  .work {
+    background: var(--charcoal);
+    color: var(--warm-white);
+  }
+
+  .work .section-label { color: var(--sky-pink); }
+  .work .section-label::before { background: var(--sage); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .work-item {
+    padding: 48px 36px;
+    background: var(--charcoal);
+    transition: background 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .work-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--sky-pink), var(--sage));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+  }
+
+  .work-item:hover::before { transform: scaleX(1); }
+  .work-item:hover { background: rgba(255,255,255,0.04); }
+
+  .work-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--blush);
+    letter-spacing: 0.2em;
+    margin-bottom: 28px;
+    opacity: 0.7;
+  }
+
+  .work-icon {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .work-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--warm-white);
+  }
+
+  .work-desc {
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(250,248,245,0.5);
+  }
+
+  /* About */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+    background: var(--warm-white);
+  }
+
+  .about-sticky {
+    position: sticky;
+    top: 120px;
+  }
+
+  .about-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--charcoal);
+    margin-bottom: 32px;
+  }
+
+  .about-headline em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .about-name-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--sky-pink);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+
+  .timeline {
+    padding-left: 28px;
+    border-left: 1px solid var(--light-grey);
+    position: relative;
+  }
+
+  .timeline-item {
+    margin-bottom: 48px;
+    position: relative;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--sky-pink);
+    border: 2px solid var(--warm-white);
+    box-shadow: 0 0 0 1px var(--blush);
+  }
+
+  .timeline-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .timeline-text {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--charcoal);
+  }
+
+  /* Vision */
+  .vision {
+    background: linear-gradient(160deg, var(--soft-green) 0%, var(--warm-white) 60%);
+    text-align: center;
+    padding: 160px 48px;
+  }
+
+  .vision-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--charcoal);
+    max-width: 800px;
+    margin: 0 auto 48px;
+    letter-spacing: -0.01em;
+  }
+
+  .vision-quote strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--deep-green);
+  }
+
+  .vision-body {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 2;
+    color: var(--grey);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .vision-tags {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 8px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--sage);
+    color: var(--deep-green);
+    border-radius: 100px;
+  }
+
+  /* Contact / Footer */
+  footer {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    padding: 100px 48px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .footer-left .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-title em {
+    font-style: italic;
+    color: var(--sky-pink);
+  }
+
+  .footer-contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(122,171,150,0.3);
+    padding-bottom: 4px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .footer-contact-link:hover { color: var(--sky-pink); border-color: var(--blush); }
+
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(250,248,245,0.5);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--sky-pink); }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 60px;
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(250,248,245,0.3);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 32px 48px;
+    background: var(--soft-green);
+    overflow: hidden;
+  }
+
+  .divider-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--deep-green);
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    padding-right: 80px;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-wrapper {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    .work-grid { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .about-sticky { position: static; }
+    footer { grid-template-columns: 1fr; }
+    nav { padding: 20px 24px; }
+    section { padding: 80px 24px; }
+    .hero-left { padding: 100px 24px 60px; }
+  }
+
+  @media (max-width: 600px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Unica Anne</a>
+  <ul class="nav-links">
+    <li><a href="#work">Works</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Musician · Creator · Community Builder</p>
+    <h1 class="hero-name">
+      Unica<br>
+      <em>Anne</em>
+    </h1>
+    <p class="hero-sub">
+      音楽とテクノロジーを橋渡しに、<br>
+      <span>地域に新しい彩りを。</span><br><br>
+      Jung Sayaka — composer, performer,<br>
+      and weaver of sound &amp; place.
+    </p>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-circles">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div class="hero-word">Sound</div>
+  </div>
+</section>
+
+<!-- MARQUEE DIVIDER -->
+<div class="divider">
+  <div class="marquee-wrapper">
+    <span class="divider-text">Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
+    <span class="divider-text">Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <p class="section-label">What I Do</p>
+  <div class="work-grid">
+    <div class="work-item">
+      <div class="work-num">01</div>
+      <span class="work-icon">♪</span>
+      <h3 class="work-title">Live<br>Performance</h3>
+      <p class="work-desc">自作曲を中心とした演奏活動。音楽と空間が交差する、ライブという一回限りの体験を届けます。</p>
+    </div>
+    <div class="work-item">
+      <div class="work-num">02</div>
+      <span class="work-icon">◎</span>
+      <h3 class="work-title">Music<br>Creation</h3>
+      <p class="work-desc">8歳からの鍵盤、12歳からの作曲。アルゼンチン・メキシコの音楽体験が溶け込んだオリジナル作品を制作しています。</p>
+    </div>
+    <div class="work-item">
+      <div class="work-num">03</div>
+      <span class="work-icon">∿</span>
+      <h3 class="work-title">Eurhythmics<br>Study</h3>
+      <p class="work-desc">リトミックを学びながら、音楽教育と身体表現の融合を探求。音を感じ、動かす喜びを広めたい。</p>
+    </div>
+    <div class="work-item">
+      <div class="work-num">04</div>
+      <span class="work-icon">⌗</span>
+      <h3 class="work-title">Web &amp;<br>Data Services</h3>
+      <p class="work-desc">ITエンジニア・データアナリストとしての経験をもとに、地域の個人・小規模事業者向けのWeb制作とデータ活用を支援します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-sticky">
+    <p class="section-label">Profile</p>
+    <h2 class="about-headline">
+      Sound<br>finds its<br>
+      <em>way home.</em>
+    </h2>
+    <div class="about-name-tag">Sayaka Jung / Unica Anne</div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-year">幼少期</div>
+      <p class="timeline-text">幼い頃から楽器に囲まれて育ち、<strong>8歳よりピアノ</strong>を学ぶ。12歳のとき、作曲という行為が「音楽は自分でつくれる」という扉を開いた。</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">16歳</div>
+      <p class="timeline-text"><strong>音楽塾ボイス</strong>に入塾。作曲理論を本格的に学び、音を構造として捉える視点を身につける。</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">19歳</div>
+      <p class="timeline-text"><strong>アルゼンチンへ留学。</strong>タンゴ、フォルクローレ、即興……南米の音楽は、身体と音楽の関係を根本から揺さぶった。</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">23歳</div>
+      <p class="timeline-text">単身<strong>メキシコへ移住。</strong>多様な文化、言語、リズムが交差する日々の中で、「外側から見た日本」という視点を手に入れた。</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">帰国後</div>
+      <p class="timeline-text"><strong>ITエンジニア → データアナリスト</strong>として国内で活躍。テクノロジーを音楽と同じ「表現の道具」として扱う感覚を育てる。</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">現在</div>
+      <p class="timeline-text">音楽家として活動しながら、フリーランスのWeb制作・データアナリストとして稼働。<strong>東京通信大学</strong>にも在籍し、時代に合った知識のアップデートを続けている。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision" id="vision">
+  <p class="section-label" style="justify-content:center;">Vision</p>
+  <blockquote class="vision-quote">
+    音楽と<strong>テクノロジー</strong>で、<br>
+    地域に彩りを。
+  </blockquote>
+  <p class="vision-body">
+    外から見たから気づけた、地元の持つ豊かさと可能性。<br>
+    南米での暮らしが教えてくれたのは、音楽が場所と人をつなぐ力です。<br><br>
+    Unica Anneとして、その力を地域に還したい。
+  </p>
+  <div class="vision-tags">
+    <span class="tag">Music × Tech</span>
+    <span class="tag">Local × Global</span>
+    <span class="tag">Sound × Community</span>
+    <span class="tag">Create × Connect</span>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="footer-left">
+    <h2 class="footer-title">
+      Let's<br>
+      <em>connect.</em>
+    </h2>
+    <p style="font-size:0.78rem;font-weight:300;color:rgba(250,248,245,0.45);line-height:1.9;margin-bottom:32px;max-width:320px;">
+      ライブのご依頼、Web制作のご相談、<br>
+      リトミックや音楽に関するお問い合わせなど、<br>
+      お気軽にご連絡ください。
+    </p>
+    <a href="mailto:hello@unicaanne.com" class="footer-contact-link">
+      hello@unicaanne.com →
+    </a>
+  </div>
+  <div class="footer-right">
+    <ul class="footer-links">
+      <li><a href="#work">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">SoundCloud</a></li>
+      <li><a href="#">YouTube</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Unica Anne / Sayaka Jung. All rights reserved.</p>
+    <p>Music × Technology × Community</p>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .work-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      cursor.style.background = 'var(--blush)';
+      ring.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.background = 'var(--deep-green)';
+      ring.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  });
+
+  // Timeline scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100 * i);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+
+  // Nav bg on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(250,248,245,0.92)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.borderBottom = '1px solid var(--light-grey)';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.borderBottom = 'none';
+    }
+  });
+</script>
+</body>
+</html>
