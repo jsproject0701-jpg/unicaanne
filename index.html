@@ -633,6 +633,32 @@
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 0.6rem; }
   }
+
+  .hero-photo{
+  position:absolute;
+  bottom:0;
+  right:5%;
+  height:95%;
+  object-fit:contain;
+
+  filter:
+    grayscale(20%)
+    contrast(105%)
+    brightness(105%);
+
+  mix-blend-mode:multiply;
+
+  z-index:2;
+  pointer-events:none;
+}
+
+  .hero-photo{
+  mask-image: linear-gradient(
+    to top,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0) 100%
+  );
+}
 </style>
 </head>
 <body>
@@ -672,6 +698,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-bg"></div>
+    <img src="images/IMG_1254.jpg" class="hero-photo">
     <div class="hero-noise"></div>
     <div class="hero-circles">
       <div class="circle"></div>
