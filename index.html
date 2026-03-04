@@ -105,6 +105,21 @@
     overflow: hidden;
   }
 
+  .hero-bg{
+  position:absolute;
+  inset:0;
+
+  background-image:
+    linear-gradient(
+      rgba(250,248,245,0.65),
+      rgba(250,248,245,0.8)
+    ),
+    url("images/park.jpg");
+
+  background-size:cover;
+  background-position:center;
+}
+
   .hero-left {
     display: flex;
     flex-direction: column;
@@ -676,6 +691,14 @@
 
   z-index:1;
 }
+
+.hero-word{
+  color:rgba(255,255,255,0.35);
+}
+
+.circle{
+  border:1px solid rgba(255,255,255,0.25);
+}
 </style>
 </head>
 <body>
@@ -715,7 +738,6 @@
   </div>
   <div class="hero-right">
     <div class="hero-bg"></div>
-    <img src="images/IMG_1254.jpg" class="hero-photo">
     <div class="hero-noise"></div>
     <div class="hero-circles">
       <div class="circle"></div>
