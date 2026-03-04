@@ -659,6 +659,27 @@
     rgba(0,0,0,0) 100%
   );
 }
+
+.hero-photo{
+  position:absolute;
+
+  bottom:0;
+  right:8%;
+
+  height:70%;   /* ←ここでサイズ調整 */
+  max-height:520px;
+
+  object-fit:contain;
+
+  filter:
+    contrast(105%)
+    brightness(105%);
+
+  mix-blend-mode:multiply;
+
+  z-index:2;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
