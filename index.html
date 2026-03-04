@@ -637,45 +637,26 @@
   .hero-photo{
   position:absolute;
   bottom:0;
-  right:5%;
-  height:95%;
-  object-fit:contain;
+  right:-40px;
 
-  filter:
-    grayscale(20%)
-    contrast(105%)
-    brightness(105%);
-
-  mix-blend-mode:multiply;
-
-  z-index:2;
-  pointer-events:none;
-}
-
-  .hero-photo{
-  mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 60%,
-    rgba(0,0,0,0) 100%
-  );
-}
-
-.hero-photo{
-  position:absolute;
-
-  bottom:0;
-  right:8%;
-
-  height:70%;   /* ←ここでサイズ調整 */
+  height:70%;
   max-height:520px;
 
   object-fit:contain;
 
   filter:
-    contrast(105%)
-    brightness(105%);
+  grayscale(20%)
+  contrast(105%)
+  brightness(105%)
+  blur(0.3px);
 
   mix-blend-mode:multiply;
+　
+  mask-image: linear-gradient(
+    to top,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0) 100%
+  );
 
   z-index:2;
   pointer-events:none;
@@ -733,8 +714,8 @@
 <!-- MARQUEE DIVIDER -->
 <div class="divider">
   <div class="marquee-wrapper">
-    <span class="divider-text">Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
-    <span class="divider-text">Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Live Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
+    <span class="divider-text">Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
+    <span class="divider-text">Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
   </div>
 </div>
 
@@ -751,7 +732,7 @@
     <div class="work-item">
       <div class="work-num">02</div>
       <span class="work-icon">◎</span>
-      <h3 class="work-title">Music<br>Creation</h3>
+      <h3 class="work-title">Music<br>Projects</h3>
       <p class="work-desc">8歳からの鍵盤、12歳からの作曲。アルゼンチン・メキシコの音楽体験が溶け込んだオリジナル作品を制作しています。</p>
     </div>
     <div class="work-item">
