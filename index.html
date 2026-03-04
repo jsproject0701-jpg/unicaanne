@@ -111,8 +111,8 @@
 
   background-image:
     linear-gradient(
-      rgba(250,248,245,0.65),
-      rgba(250,248,245,0.8)
+      rgba(250,248,245,0.45),
+      rgba(250,248,245,0.7)
     ),
     url("images/IMG_1280.PNG");
 
@@ -123,6 +123,8 @@
     contrast(105%)
     saturate(85%)
     brightness(105%);
+    
+  will-change: transform;
 }
 
   .hero-left {
@@ -666,25 +668,6 @@
   clip-path: inset(0 0 60px 0);
 }
 
-  .hero-right::after{
-  content:"";
-  position:absolute;
-
-  width:380px;
-  height:420px;
-
-  right:90px;
-  bottom:60px;
-
-  background:rgba(255,255,255,0.4);
-
-  backdrop-filter:blur(10px);
-
-  border-radius:8px;
-
-  z-index:1;
-}
-
 .hero-word{
   position:absolute;
 
@@ -973,6 +956,17 @@ window.addEventListener("scroll", () => {
   bg.style.transform = `translateY(${scroll * 0.15}px)`
 
 })
+
+// Hero parallax
+const heroBg = document.querySelector(".hero-bg");
+
+window.addEventListener("scroll", () => {
+
+  const scroll = window.scrollY;
+
+  heroBg.style.transform = `translateY(${scroll * 0.2}px)`;
+
+});
 </script>
 </body>
 </html>
