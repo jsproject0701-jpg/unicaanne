@@ -117,7 +117,12 @@
     url("images/IMG_1280.PNG");
 
   background-size:cover;
-  background-position:center;
+  background-position: center 35%;
+
+  filter:
+    contrast(105%)
+    saturate(85%)
+    brightness(105%);
 }
 
   .hero-left {
@@ -176,18 +181,6 @@
   .hero-right {
     position: relative;
     overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg,
-      var(--soft-green) 0%,
-      var(--sky-pink) 45%,
-      #e8d5d8 80%,
-      var(--soft-green) 100%
-    );
-    animation: gradientShift 12s ease infinite;
   }
 
   @keyframes gradientShift {
@@ -693,11 +686,39 @@
 }
 
 .hero-word{
-  color:rgba(255,255,255,0.35);
+  position:absolute;
+
+  font-family:'Cormorant Garamond',serif;
+  font-size:18rem;
+
+  right:-80px;
+  bottom:-40px;
+
+  font-style:italic;
+  font-weight:300;
+
+  color:rgba(255,255,255,0.25);
+
+  letter-spacing:-0.04em;
+  line-height:1;
+
+  pointer-events:none;
 }
 
 .circle{
   border:1px solid rgba(255,255,255,0.25);
+}
+
+.circle:nth-child(1){
+  animation-duration:120s;
+}
+
+.circle:nth-child(2){
+  animation-duration:160s;
+}
+
+.circle:nth-child(3){
+  animation-duration:200s;
 }
 </style>
 </head>
@@ -944,6 +965,14 @@
       nav.style.borderBottom = 'none';
     }
   });
+window.addEventListener("scroll", () => {
+
+  const scroll = window.scrollY
+  const bg = document.querySelector(".hero-bg")
+
+  bg.style.transform = `translateY(${scroll * 0.15}px)`
+
+})
 </script>
 </body>
 </html>
