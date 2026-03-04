@@ -636,30 +636,45 @@
 
   .hero-photo{
   position:absolute;
-  bottom:0;
-  right:-40px;
 
-  height:70%;
-  max-height:520px;
+  bottom:80px;
+  right:120px;
 
-  object-fit:contain;
+  width:340px;
+
+  border-radius:8px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.18);
+
+  object-fit:cover;
 
   filter:
-  grayscale(20%)
   contrast(105%)
-  brightness(105%)
-  blur(0.3px);
+  brightness(105%);
 
-  mix-blend-mode:multiply;
-　
-  mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,1) 60%,
-    rgba(0,0,0,0) 100%
-  );
+  z-index:3;
 
-  z-index:2;
-  pointer-events:none;
+  clip-path: inset(0 0 60px 0);
+}
+
+  .hero-right::after{
+  content:"";
+  position:absolute;
+
+  width:380px;
+  height:420px;
+
+  right:90px;
+  bottom:60px;
+
+  background:rgba(255,255,255,0.4);
+
+  backdrop-filter:blur(10px);
+
+  border-radius:8px;
+
+  z-index:1;
 }
 </style>
 </head>
