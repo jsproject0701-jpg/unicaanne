@@ -24,9 +24,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ─────────────────────────────
-   TOKENS
-───────────────────────────── */
 :root {
   --pink:   #f2c4ce;
   --blush:  #e8a8b8;
@@ -39,16 +36,12 @@
   --smoke:  #9a9a9a;
   --ink:    #1f1f1f;
   --ink2:   #2a2a2a;
-
   --serif:  'Cormorant Garamond', serif;
   --mincho: 'Shippori Mincho', serif;
   --mono:   'DM Mono', monospace;
   --gothic: 'Zen Kaku Gothic New', sans-serif;
 }
 
-/* ─────────────────────────────
-   RESET
-───────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -58,9 +51,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─────────────────────────────
-   CURSOR  (desktop only)
-───────────────────────────── */
 @media (hover: hover) and (pointer: fine) {
   body { cursor: none; }
 }
@@ -85,9 +75,7 @@ body {
   .cursor, .cursor-ring { display: block; }
 }
 
-/* ─────────────────────────────
-   NAV
-───────────────────────────── */
+/* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 500;
@@ -123,7 +111,6 @@ nav.solid .nav-logo { color: var(--ink); }
 nav.solid .nav-links a { color: var(--ink2); opacity: .6; }
 nav.solid .nav-links a:hover { color: var(--green); opacity: 1; }
 
-/* hamburger */
 .hamburger {
   display: none;
   flex-direction: column; gap: 5px;
@@ -152,7 +139,7 @@ nav.solid .hamburger span { background: var(--ink); }
     justify-content: center; align-items: center; gap: 40px;
     transform: translateX(100%);
     transition: transform .38s cubic-bezier(.4,0,.2,1);
-    z-index: 499;
+    z-index: 502;
   }
   .nav-links.open { transform: translateX(0); }
   .nav-links a {
@@ -162,9 +149,7 @@ nav.solid .hamburger span { background: var(--ink); }
   .nav-links a:hover { color: var(--pink) !important; }
 }
 
-/* ─────────────────────────────
-   HERO
-───────────────────────────── */
+/* HERO */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -310,9 +295,7 @@ nav.solid .hamburger span { background: var(--ink); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─────────────────────────────
-   MANIFESTO
-───────────────────────────── */
+/* MANIFESTO */
 .manifesto {
   padding: 130px 52px;
   text-align: center;
@@ -324,6 +307,7 @@ nav.solid .hamburger span { background: var(--ink); }
   font-weight: 300; line-height: 1.85;
   color: var(--ink);
   white-space: nowrap;
+  /* ▼ 初期状態：非表示。.show が付いたら表示 */
   opacity: 0; transform: translateY(12px);
   transition: opacity .8s ease, transform .8s ease;
 }
@@ -335,9 +319,7 @@ nav.solid .hamburger span { background: var(--ink); }
 }
 .manifesto-dot.show { opacity: 1; }
 
-/* ─────────────────────────────
-   MARQUEE BAND
-───────────────────────────── */
+/* MARQUEE BAND */
 .band { padding: 24px 0; background: var(--mint); overflow: hidden; }
 .band-inner { display: flex; white-space: nowrap; }
 .band-text {
@@ -350,9 +332,7 @@ nav.solid .hamburger span { background: var(--ink); }
   to   { transform: translateX(-50%); }
 }
 
-/* ─────────────────────────────
-   SECTION LABEL
-───────────────────────────── */
+/* SECTION LABEL */
 .section-label {
   font-family: var(--mono);
   font-size: .58rem; letter-spacing: .32em; text-transform: uppercase;
@@ -366,18 +346,14 @@ nav.solid .hamburger span { background: var(--ink); }
   background: var(--pink); flex-shrink: 0;
 }
 
-/* ─────────────────────────────
-   FEATURED
-───────────────────────────── */
+/* FEATURED */
 .featured { padding: 100px 52px; background: var(--stone); }
 .featured-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   border: 1px solid var(--mist);
   max-width: 580px;
 }
-.featured-item {
-  padding: 36px 40px; transition: background .3s;
-}
+.featured-item { padding: 36px 40px; transition: background .3s; }
 .featured-item:first-child { border-right: 1px solid var(--mist); }
 .featured-item:hover { background: var(--cream); }
 .featured-num {
@@ -393,9 +369,7 @@ nav.solid .hamburger span { background: var(--ink); }
   letter-spacing: .14em; text-transform: uppercase; color: var(--smoke);
 }
 
-/* ─────────────────────────────
-   WORK
-───────────────────────────── */
+/* WORK */
 .work { padding: 110px 52px; background: var(--ink); color: var(--cream); }
 .work .section-label { color: var(--pink); }
 .work .section-label::before { background: var(--sage); }
@@ -430,14 +404,9 @@ nav.solid .hamburger span { background: var(--ink); }
   font-family: var(--serif); font-size: 1.42rem; line-height: 1.2;
   margin-bottom: 14px;
 }
-.work-desc {
-  font-size: .76rem; line-height: 1.85; font-weight: 300;
-  color: rgba(250,248,245,.45);
-}
+.work-desc { font-size: .76rem; line-height: 1.85; font-weight: 300; color: rgba(250,248,245,.45); }
 
-/* ─────────────────────────────
-   ABOUT
-───────────────────────────── */
+/* ABOUT */
 .about {
   display: grid; grid-template-columns: 1fr 1.5fr;
   gap: 90px; padding: 120px 52px;
@@ -486,19 +455,14 @@ nav.solid .hamburger span { background: var(--ink); }
 .timeline-text { font-size: .84rem; line-height: 1.95; font-weight: 300; }
 .timeline-text strong { font-weight: 400; }
 
-/* ─────────────────────────────
-   PHILOSOPHY
-───────────────────────────── */
+/* PHILOSOPHY */
 .philosophy { padding: 130px 52px; background: var(--stone); }
 .philosophy-grid {
   display: grid; grid-template-columns: repeat(3,1fr);
   gap: 1px; background: var(--mist);
   border: 1px solid var(--mist);
 }
-.philosophy-item {
-  padding: 52px 40px; background: var(--stone);
-  transition: background .3s;
-}
+.philosophy-item { padding: 52px 40px; background: var(--stone); transition: background .3s; }
 .philosophy-item:hover { background: var(--cream); }
 .philosophy-item h3 {
   font-family: var(--mincho); font-size: 1.28rem; font-weight: 400;
@@ -512,9 +476,7 @@ nav.solid .hamburger span { background: var(--ink); }
 }
 .philosophy-item p { font-size: .82rem; line-height: 1.95; font-weight: 300; color: var(--smoke); }
 
-/* ─────────────────────────────
-   PRESS
-───────────────────────────── */
+/* PRESS */
 .press { padding: 110px 52px; background: var(--ink2); color: var(--cream); }
 .press .section-label { color: var(--pink); }
 .press .section-label::before { background: var(--sage); }
@@ -550,9 +512,7 @@ nav.solid .hamburger span { background: var(--ink); }
 }
 .press-desc { font-size: .76rem; line-height: 1.8; font-weight: 300; color: rgba(250,248,245,.45); }
 
-/* ─────────────────────────────
-   VISION
-───────────────────────────── */
+/* VISION */
 .vision {
   padding: 160px 52px;
   background: linear-gradient(150deg, var(--mint) 0%, var(--cream) 60%);
@@ -590,9 +550,7 @@ nav.solid .hamburger span { background: var(--ink); }
 }
 .tag:hover { background: var(--green); color: var(--cream); }
 
-/* ─────────────────────────────
-   FOOTER
-───────────────────────────── */
+/* FOOTER */
 footer {
   background: var(--ink); color: var(--cream);
   padding: 110px 52px 64px;
@@ -637,9 +595,7 @@ footer {
   color: rgba(250,248,245,.24);
 }
 
-/* ─────────────────────────────
-   RESPONSIVE
-───────────────────────────── */
+/* RESPONSIVE */
 @media (max-width: 860px) {
   nav { padding: 22px 28px; }
   .work-grid { grid-template-columns: 1fr 1fr; }
@@ -672,7 +628,6 @@ footer {
 }
 </style>
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KS9Z1BS2Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -935,9 +890,7 @@ footer {
       リトミックや音楽制作に関するお問い合わせなど、<br>
       お気軽にご連絡ください。
     </p>
-    <a href="mailto:jsproject0701@gmail.com" class="footer-mail">
-jsproject0701@gmail.com →
-</a>
+    <a href="mailto:jsproject0701@gmail.com" class="footer-mail">jsproject0701@gmail.com →</a>
   </div>
   <div class="footer-right">
     <ul class="footer-links">
@@ -955,7 +908,7 @@ jsproject0701@gmail.com →
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* カスタムカーソル */
 const cursor = document.getElementById('cursor');
 const ring   = document.getElementById('cursorRing');
@@ -1007,12 +960,12 @@ document.addEventListener('keydown', e=>{
   document.body.style.overflow='';
 });
 
-/* Scroll reveal */
+/* Scroll reveal — threshold:0 + rootMargin で確実に発火 */
 const obs = new IntersectionObserver(entries=>{
   entries.forEach((en,i)=>{
     if(en.isIntersecting) setTimeout(()=>en.target.classList.add('show'), i*80);
   });
-},{threshold:.1});
+},{threshold:0, rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.manifesto-line,.manifesto-dot,.timeline-item').forEach(el=>obs.observe(el));
 
 /* Parallax */
@@ -1023,12 +976,6 @@ if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
   },{passive:true});
 }
 
-/* Mail */
-(function(){
-  const el=document.getElementById('mailLink');
-  if(el) el.href='mailto:jsproject0701@gmail.com';
-})();
-
 /* GA outbound */
 document.querySelectorAll('a').forEach(a=>{
   a.addEventListener('click',function(){
@@ -1036,4 +983,10 @@ document.querySelectorAll('a').forEach(a=>{
     if(u.includes('spotify'))   gtag('event','click_spotify',  {event_category:'outbound'});
     if(u.includes('youtube'))   gtag('event','click_youtube',  {event_category:'outbound'});
     if(u.includes('instagram')) gtag('event','click_instagram',{event_category:'outbound'});
-    if(u.includes('j
+    if(u.includes('jsproject')) gtag('event','click_jsproject',{event_category:'outbound'});
+    if(u.includes('mailto'))    gtag('event','click_email',    {event_category:'contact'});
+  });
+});
+</script>
+</body>
+</html>
