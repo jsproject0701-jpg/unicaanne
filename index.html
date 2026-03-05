@@ -3,721 +3,816 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Unica Anne / Jung Sayakaの公式ポートフォリオ。音楽家・クリエイティブテクノロジストとして、音楽・テクノロジー・コミュニティをつなぐ活動を紹介。JS ProjectとしてAIを活用したWeb制作も行っています。">
+<meta name="description" content="Unica Anne / Jung Sayakaの公式ポートフォリオ。音楽家・クリエイティブテクノロジストとして、音楽・テクノロジー・コミュニティをつなぐ活動を紹介。">
 <meta property="og:image" content="https://unicaanne.com/IMG_1280.PNG">
 <meta property="og:title" content="Unica Anne / Jung Sayaka">
 <meta property="og:type" content="website">
-<title>Unica Anne / Jung Sayaka — Musician & Creative Technologist</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="canonical" href="https://unicaanne.com">
-<meta name="robots" content="index,follow">
-  <meta property="og:site_name" content="Unica Anne">
+<meta property="og:site_name" content="Unica Anne">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://unicaanne.com">
+<title>Unica Anne / Jung Sayaka — Musician & Creative Technologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Shippori+Mincho:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --sky-pink: #f2c4ce;
-    --blush: #e8a8b8;
-    --deep-green: #4a7c6a;
-    --sage: #7aab96;
-    --soft-green: #c8ddd7;
-    --warm-white: #faf8f5;
-    --grey: #9a9a9a;
-    --light-grey: #e8e6e2;
-    --charcoal: #2a2a2a;
-    --text: #1a1a1a;
-  }
+/* ════════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════════ */
+:root {
+  --sky-pink:   #f2c4ce;
+  --blush:      #e8a8b8;
+  --deep-green: #4a7c6a;
+  --sage:       #7aab96;
+  --soft-green: #c8ddd7;
+  --warm-white: #faf8f5;
+  --grey:       #9a9a9a;
+  --light-grey: #e8e6e2;
+  --charcoal:   #2a2a2a;
+  --text:       #1a1a1a;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+/* ════════════════════════════════════════════
+   RESET & BASE
+════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-  body {
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    background: var(--warm-white);
-    color: var(--text);
-  
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  background: var(--warm-white);
+  color: var(--text);
+  overflow-x: hidden;
+  /* カーソルはデスクトップのみ非表示 */
+}
 
-  /* Custom cursor */
-  .cursor {
-    width: 8px; height: 8px;
-    background: var(--deep-green);
-    border-radius: 50%;
+/* タッチデバイス以外でのみカスタムカーソル */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  .cursor, .cursor-ring { display: block; }
+}
+
+/* ════════════════════════════════════════════
+   CUSTOM CURSOR（デスクトップのみ）
+════════════════════════════════════════════ */
+.cursor {
+  display: none;
+  width: 8px; height: 8px;
+  background: var(--deep-green);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.18s ease, background 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  display: none;
+  width: 32px; height: 32px;
+  border: 1px solid var(--blush);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
+  transform: translate(-50%, -50%);
+}
+
+/* ════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 26px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  font-weight: 400;
+  text-decoration: none;
+  color: rgba(255,255,255,0.92);
+  transition: color 0.4s;
+  position: relative;
+  z-index: 201;
+}
+.nav-logo.scrolled { color: var(--charcoal); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+  color: rgba(255,255,255,0.8);
+  transition: color 0.3s, opacity 0.3s;
+}
+.nav-links a:hover             { color: var(--sky-pink); opacity: 1; }
+.nav-links.scrolled a          { color: var(--charcoal); opacity: 0.65; }
+.nav-links.scrolled a:hover    { color: var(--deep-green); opacity: 1; }
+.nav-links a[href*="jsproject"] { color: var(--sage); }
+.nav-links.scrolled a[href*="jsproject"] { color: var(--deep-green); }
+
+/* ── ハンバーガー ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px; height: 18px;
+  cursor: pointer;
+  z-index: 201;
+  position: relative;
+}
+.hamburger span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: rgba(255,255,255,0.9);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.4s ease;
+}
+.hamburger.scrolled span { background: var(--charcoal); }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+/* ════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ── 背景写真
+   この写真は縦長（人物：中央、顔：上1/3あたり）
+   → object-position 相当で "40% 20%" に設定
+   → パスは index.html と同階層の IMG_1280.PNG
+─────────────────────────────────────────── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("IMG_1280.PNG");
+  background-size: cover;
+  background-position: 40% 18%;   /* 顔が画面上部に収まる位置 */
+  will-change: transform;
+  animation: heroZoom 24s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04) translateY(-1%); }
+}
+
+/* ── オーバーレイ（左側を暗くしてテキスト可読性確保）
+   右半分（人物側）は写真を活かすため薄め
+─────────────────────────────────────────── */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    /* 左→右：テキストエリアのみ暗くする */
+    linear-gradient(
+      105deg,
+      rgba(8,8,6,0.82) 0%,
+      rgba(8,8,6,0.58) 30%,
+      rgba(8,8,6,0.18) 55%,
+      rgba(8,8,6,0.00) 100%
+    ),
+    /* 下部グランド：接地感 */
+    linear-gradient(
+      to top,
+      rgba(8,8,6,0.45) 0%,
+      rgba(8,8,6,0.12) 22%,
+      rgba(8,8,6,0.00) 50%
+    ),
+    /* 周縁vignette */
+    radial-gradient(
+      ellipse at 30% 50%,
+      rgba(0,0,0,0.00) 42%,
+      rgba(0,0,0,0.26) 100%
+    );
+}
+
+.hero-noise {
+  position: absolute; inset: 0;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* 装飾サークル */
+.hero-circles {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2; pointer-events: none;
+}
+.circle {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.045);
+  animation: rotateSlow linear infinite;
+}
+.circle:nth-child(1) { width: 300px; height: 300px; animation-duration: 120s; }
+.circle:nth-child(2) { width: 450px; height: 450px; animation-duration: 160s; animation-direction: reverse; }
+.circle:nth-child(3) { width: 600px; height: 600px; animation-duration: 200s; }
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+/* 装飾ワード */
+.hero-word {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 20rem;
+  right: -60px; bottom: -100px;
+  color: rgba(255,255,255,0.032);
+  letter-spacing: -0.03em;
+  pointer-events: none; z-index: 3;
+  animation: floatWord 18s ease-in-out infinite;
+}
+@keyframes floatWord {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-22px); }
+}
+
+/* ── Hero テキスト（左寄せ） ── */
+.hero-left {
+  position: relative;
+  z-index: 4;
+  padding: 0 0 0 8vw;
+  max-width: 520px;
+  width: 50%;
+}
+
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--sky-pink);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+}
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 6.2vw, 5.8rem);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-shadow:
+    0  1px  2px rgba(0,0,0,0.7),
+    0  6px 22px rgba(0,0,0,0.45),
+    0 20px 52px rgba(0,0,0,0.22);
+  opacity: 0;
+  animation: heroFade 1.4s ease 0.4s forwards;
+}
+.hero-name em {
+  font-style: italic;
+  display: block;
+  font-size: 0.72em;
+  color: #f7d4dc;
+  text-shadow:
+    0  1px  2px rgba(0,0,0,0.6),
+    0  6px 24px rgba(0,0,0,0.36),
+    0  0   46px rgba(232,168,184,0.22);
+  opacity: 0;
+  animation: heroFade 1.4s ease 0.75s forwards;
+}
+@keyframes heroFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-divider {
+  width: 32px; height: 1px;
+  background: linear-gradient(90deg, rgba(242,196,206,0.85), rgba(122,171,150,0.5));
+  margin: 26px 0;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.0s forwards;
+}
+
+.hero-sub {
+  font-size: 0.81rem;
+  font-weight: 300;
+  line-height: 1.92;
+  color: rgba(255,255,255,0.80);
+  max-width: 360px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.0s forwards;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.hero-jp {
+  margin-top: 5px;
+  color: rgba(255,255,255,0.60);
+  font-size: 0.78rem;
+}
+.hero-studio {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.52);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+.studio-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--sky-pink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(242,196,206,0.42);
+  padding-bottom: 1px;
+  transition: opacity 0.3s;
+}
+.studio-link:hover { opacity: 0.7; }
+
+/* スクロールヒント */
+.scroll-hint {
+  position: absolute;
+  bottom: 38px; left: 8vw;
+  display: flex; align-items: center; gap: 12px;
+  z-index: 4;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.6s forwards;
+}
+.scroll-hint span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+.scroll-line {
+  width: 40px; height: 1px;
+  background: rgba(255,255,255,0.14);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  left: -100%; top: 0;
+  width: 100%; height: 100%;
+  background: var(--sky-pink);
+  animation: slideLine 2.2s ease infinite;
+}
+@keyframes slideLine { to { left: 100%; } }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════════════════════════════
+   SECTION BASE
+════════════════════════════════════════════ */
+section { padding: 120px 48px; position: relative; }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.59rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--deep-green);
+  margin-bottom: 60px;
+  display: flex; align-items: center; gap: 16px;
+}
+.section-label::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--sky-pink);
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════
+   MANIFESTO
+════════════════════════════════════════════ */
+.manifesto {
+  background: var(--warm-white);
+  padding: 120px 48px;
+  text-align: center;
+}
+.manifesto-line {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 300;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.manifesto-line.visible { opacity: 1; transform: translateY(0); }
+.manifesto-dot {
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--sky-pink);
+  margin: 18px auto;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.25s;
+}
+.manifesto-dot.visible { opacity: 1; }
+
+/* ════════════════════════════════════════════
+   MARQUEE DIVIDER
+════════════════════════════════════════════ */
+.divider { padding: 28px 0; background: var(--soft-green); overflow: hidden; }
+.marquee-wrapper { overflow: hidden; display: flex; width: 100%; }
+.divider-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; font-style: italic;
+  color: var(--deep-green);
+  white-space: nowrap;
+  animation: marquee 22s linear infinite;
+  padding-right: 80px;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ════════════════════════════════════════════
+   FEATURED
+════════════════════════════════════════════ */
+.featured { background: var(--warm-white); padding: 100px 48px; }
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  margin-top: 40px;
+  max-width: 640px;
+}
+.featured-item { border-top: 1px solid var(--light-grey); padding-top: 22px; }
+.featured-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 400;
+  color: var(--charcoal);
+  display: block; margin-bottom: 7px;
+}
+.featured-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--grey);
+}
+
+/* ════════════════════════════════════════════
+   WORK
+════════════════════════════════════════════ */
+.work { background: var(--charcoal); color: var(--warm-white); }
+.work .section-label { color: var(--sky-pink); }
+.work .section-label::before { background: var(--sage); }
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+}
+.work-item {
+  padding: 48px 34px;
+  background: var(--charcoal);
+  transition: background 0.4s ease;
+  position: relative; overflow: hidden;
+  text-decoration: none; color: inherit;
+  display: block;
+}
+.work-item::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sky-pink), var(--sage));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: left;
+}
+.work-item:hover::before { transform: scaleX(1); }
+.work-item:hover { background: rgba(255,255,255,0.04); }
+.work-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; color: var(--blush);
+  letter-spacing: 0.2em; margin-bottom: 28px; opacity: 0.65;
+}
+.work-icon { font-size: 1.7rem; margin-bottom: 18px; display: block; }
+.work-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem; font-weight: 400;
+  line-height: 1.22; margin-bottom: 14px;
+  color: var(--warm-white);
+}
+.work-desc {
+  font-size: 0.74rem; font-weight: 300;
+  line-height: 1.82; color: rgba(250,248,245,0.48);
+}
+
+/* ════════════════════════════════════════════
+   ABOUT
+════════════════════════════════════════════ */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px; align-items: start;
+  background: var(--warm-white);
+}
+.about-sticky { position: sticky; top: 110px; }
+.about-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  font-weight: 300; line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--charcoal); margin-bottom: 14px;
+}
+.about-headline em { font-style: italic; color: var(--blush); }
+.about-headline-jp {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.86rem; font-weight: 300;
+  letter-spacing: 0.13em; color: var(--grey);
+  line-height: 1.85;
+  border-top: 1px solid var(--light-grey);
+  padding-top: 13px; margin-top: 13px;
+  margin-bottom: 26px;
+}
+.about-name-tag {
+  display: inline-block;
+  padding: 7px 15px;
+  border: 1px solid var(--sky-pink);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem; letter-spacing: 0.2em;
+  color: var(--grey);
+}
+
+/* Timeline */
+.timeline { padding-left: 28px; border-left: 1px solid var(--light-grey); }
+.timeline-item {
+  margin-bottom: 44px; position: relative;
+  opacity: 0; transform: translateX(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.timeline-item.visible { opacity: 1; transform: translateX(0); }
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -34px; top: 5px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--sky-pink);
+  border: 2px solid var(--warm-white);
+  box-shadow: 0 0 0 1px var(--blush);
+}
+.timeline-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.2em;
+  color: var(--sage); margin-bottom: 7px;
+}
+.timeline-text {
+  font-size: 0.84rem; font-weight: 300;
+  line-height: 1.92; color: var(--charcoal);
+}
+
+/* ════════════════════════════════════════════
+   PHILOSOPHY
+════════════════════════════════════════════ */
+.philosophy { background: var(--warm-white); padding: 140px 48px; }
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 60px; margin-top: 40px;
+}
+.philosophy-item h3 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--charcoal); letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.philosophy-item h3 span {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.2em;
+  color: var(--sage); font-weight: 300;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.philosophy-item p {
+  font-size: 0.84rem; line-height: 1.95;
+  font-weight: 300; color: var(--grey);
+}
+
+/* ════════════════════════════════════════════
+   PRESS / MEDIA
+════════════════════════════════════════════ */
+.press { background: var(--charcoal); color: var(--warm-white); padding: 140px 48px; }
+.press .section-label { color: var(--sky-pink); }
+.press .section-label::before { background: var(--sage); }
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 40px; margin-top: 40px;
+}
+.press-item {
+  text-decoration: none; color: inherit;
+  border-top: 1px solid rgba(255,255,255,0.13);
+  padding-top: 22px;
+  transition: opacity 0.3s; display: block;
+}
+.press-item:hover { opacity: 0.65; }
+.press-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--sage);
+  display: block; margin-bottom: 10px;
+}
+.press-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 400; margin-bottom: 9px;
+}
+.press-desc {
+  font-size: 0.78rem; line-height: 1.8;
+  color: rgba(250,248,245,0.55);
+}
+
+/* ════════════════════════════════════════════
+   VISION
+════════════════════════════════════════════ */
+.vision {
+  background: linear-gradient(160deg, var(--soft-green) 0%, var(--warm-white) 65%);
+  text-align: center;
+  padding: 160px 48px;
+}
+.vision-quote {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 300; line-height: 1.9;
+  letter-spacing: 0.1em;
+  color: var(--charcoal);
+  max-width: 600px; margin: 0 auto 20px;
+}
+/* .accent は deep-green だと背景の緑に溶けるため blush に変更 */
+.vision-quote .accent { color: var(--blush); }
+
+.vision-rule {
+  width: 36px; height: 1px;
+  background: linear-gradient(90deg, var(--sky-pink), var(--sage));
+  margin: 30px auto;
+}
+.vision-body {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.9rem; font-weight: 300;
+  line-height: 2.3; letter-spacing: 0.08em;
+  color: var(--grey); max-width: 460px; margin: 0 auto;
+}
+.vision-tags {
+  display: flex; justify-content: center;
+  gap: 10px; margin-top: 52px; flex-wrap: wrap;
+}
+.tag {
+  padding: 7px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--sage);
+  color: var(--deep-green); border-radius: 100px;
+}
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+footer {
+  background: var(--charcoal); color: var(--warm-white);
+  padding: 100px 48px 60px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+}
+.footer-left .footer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem,5vw,3.8rem); font-weight: 300;
+  line-height: 1.1; margin-bottom: 30px; letter-spacing: -0.02em;
+}
+.footer-title em { font-style: italic; color: var(--sky-pink); }
+.footer-contact-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.18em; color: var(--sage); text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(122,171,150,0.28);
+  padding-bottom: 3px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-contact-link:hover { color: var(--sky-pink); border-color: var(--blush); }
+.footer-right { display: flex; flex-direction: column; justify-content: space-between; }
+.footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; list-style: none; }
+.footer-links a {
+  font-size: 0.78rem; font-weight: 300;
+  color: rgba(250,248,245,0.46); text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--sky-pink); }
+.footer-bottom {
+  grid-column: 1/-1;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: 58px; padding-top: 30px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.14em;
+  color: rgba(250,248,245,0.28);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE — タブレット（≤900px）
+════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 22px 28px; }
+  section { padding: 80px 28px; }
+
+  /* ハンバーガー表示 */
+  .hamburger { display: flex; }
+  .nav-links {
     position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.2s ease, background 0.3s ease;
-    transform: translate(-50%, -50%);
+    top: 0; right: -100%; width: 100%; height: 100vh;
+    background: rgba(10,10,8,0.97);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 36px;
+    transition: right 0.38s cubic-bezier(0.4,0,0.2,1);
   }
-  .cursor-ring {
-    width: 32px; height: 32px;
-    border: 1px solid var(--blush);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s;
-    transform: translate(-50%, -50%);
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 28px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    letter-spacing: 0.35em;
-    font-weight: 400;
-    text-decoration: none;
-    color: rgba(255,255,255,0.92);
-    transition: color 0.4s;
-  }
-  .nav-logo.scrolled { color: var(--charcoal); }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links.active { right: 0; }
   .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
-    text-decoration: none;
-    color: rgba(255,255,255,0.8);
-    transition: color 0.4s, opacity 0.3s;
+    font-size: 0.85rem; letter-spacing: 0.28em;
+    color: rgba(255,255,255,0.85) !important;
+    opacity: 1 !important;
   }
-  .nav-links a:hover { color: var(--sky-pink); }
-  .nav-links.scrolled a { color: var(--charcoal); opacity: 0.7; }
-  .nav-links.scrolled a:hover { color: var(--deep-green); opacity: 1; }
-  .nav-links a[href*="jsproject"] { color: var(--sage); }
-  .nav-links.scrolled a[href*="jsproject"] { color: var(--deep-green); }
+  .nav-links a:hover { color: var(--sky-pink) !important; }
 
-  /* ─── HERO ─── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center; /* 縦中央寄せ */
-  }
+  /* Hero */
+  .hero-left { width: 72%; padding: 0 0 0 6vw; }
+  .hero-word { font-size: 11rem; right: -24px; bottom: -50px; }
 
-  /* 背景写真 — 人物が上に見えるよう top 寄せ */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url("images/IMG_1280.PNG");
-    background-size: cover;
-    background-position: center 15%; /* ← 上方向にシフト */
-    will-change: transform;
-    animation: heroZoom 24s ease-in-out infinite alternate;
-  }
-  @keyframes heroZoom {
-    from { transform: scale(1); }
-    to   { transform: scale(1.04); }
-  }
+  .featured-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+  .work-grid { grid-template-columns: 1fr 1fr; }
+  .about { grid-template-columns: 1fr; }
+  .about-sticky { position: static; }
+  .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
+  .press-grid { grid-template-columns: 1fr 1fr; }
+  footer { grid-template-columns: 1fr; }
+}
 
-  /*
-   * オーバーレイ — 左側テキスト配置に合わせた設計
-   * テキストを左に置くため、左側を暗くする
-   */
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background:
-      linear-gradient(
-        to right,
-        rgba(10,10,8,0.78) 0%,
-        rgba(10,10,8,0.52) 35%,
-        rgba(10,10,8,0.12) 60%,
-        rgba(10,10,8,0.00) 100%
-      ),
-      linear-gradient(
-        to top,
-        rgba(10,10,8,0.40) 0%,
-        rgba(10,10,8,0.10) 25%,
-        rgba(10,10,8,0.00) 55%
-      ),
-      radial-gradient(
-        ellipse at 35% 50%,
-        rgba(0,0,0,0.00) 40%,
-        rgba(0,0,0,0.22) 100%
-      );
-  }
+/* ════════════════════════════════════════════
+   RESPONSIVE — スマホ（≤600px）
+════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  nav { padding: 18px 20px; }
+  section { padding: 72px 20px; }
 
-  .hero-noise {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  .hero-circles {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.05);
-    animation: rotateSlow linear infinite;
-  }
-  .circle:nth-child(1) { width: 300px; height: 300px; animation-duration: 120s; }
-  .circle:nth-child(2) { width: 450px; height: 450px; animation-duration: 160s; animation-direction: reverse; }
-  .circle:nth-child(3) { width: 600px; height: 600px; animation-duration: 200s; }
-  @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  .hero-word {
-    position: absolute;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 20rem;
-    right: -60px;
-    bottom: -100px;
-    color: rgba(255,255,255,0.035);
-    letter-spacing: -0.03em;
-    pointer-events: none;
-    z-index: 3;
-    animation: floatWord 18s ease-in-out infinite;
-  }
-  @keyframes floatWord {
-    0%  { transform: translateY(0px); }
-    50% { transform: translateY(-24px); }
-    100%{ transform: translateY(0px); }
-  }
-
-  /* ─── HERO テキスト — 左寄せ ─── */
+  /* Hero — スマホは下寄せに変更 */
+  .hero { align-items: flex-end; }
   .hero-left {
-    position: relative;
-    z-index: 4;
-    padding: 0 0 0 8vw; /* 左余白だけ */
-    max-width: 540px;
-    width: 50%;
-  }
-
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--sky-pink);
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.4rem, 6.5vw, 6rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    text-shadow:
-      0  1px  2px rgba(0,0,0,0.65),
-      0  6px 20px rgba(0,0,0,0.45),
-      0 18px 50px rgba(0,0,0,0.25);
-    opacity: 0;
-    animation: heroFade 1.4s ease 0.4s forwards;
-  }
-  .hero-name em {
-    font-style: italic;
-    display: block;
-    font-size: 0.72em;
-    color: #f7d4dc;
-    text-shadow:
-      0  1px  2px rgba(0,0,0,0.55),
-      0  6px 22px rgba(0,0,0,0.35),
-      0  0   44px rgba(232,168,184,0.2);
-    opacity: 0;
-    animation: heroFade 1.4s ease 0.75s forwards;
-  }
-  @keyframes heroFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-divider {
-    width: 32px;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(242,196,206,0.8), rgba(122,171,150,0.5));
-    margin: 26px 0;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.0s forwards;
-  }
-
-  .hero-sub {
-    font-size: 0.82rem;
-    font-weight: 300;
-    line-height: 1.9;
-    color: rgba(255,255,255,0.80);
-    max-width: 360px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.0s forwards;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
-  }
-  .hero-jp {
-    margin-top: 6px;
-    color: rgba(255,255,255,0.62);
-    font-size: 0.79rem;
-  }
-  .hero-studio {
-    margin-top: 16px;
-    font-size: 0.76rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.55);
-    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-    opacity: 0;
-    animation: fadeUp 1s ease 1.2s forwards;
-  }
-  .studio-link {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    color: var(--sky-pink);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(242,196,206,0.45);
-    padding-bottom: 1px;
-    transition: opacity 0.3s;
-  }
-  .studio-link:hover { opacity: 0.7; }
-
-  /* スクロールヒント — 左寄せに合わせる */
-  .scroll-hint {
-    position: absolute;
-    bottom: 40px;
-    left: 8vw;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 4;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.6s forwards;
-  }
-  .scroll-hint span {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-  .scroll-line {
-    width: 40px;
-    height: 1px;
-    background: rgba(255,255,255,0.15);
-    position: relative;
-    overflow: hidden;
-  }
-  .scroll-line::after {
-    content: '';
-    position: absolute;
-    left: -100%;
-    top: 0;
     width: 100%;
-    height: 100%;
-    background: var(--sky-pink);
-    animation: slideLine 2s ease infinite;
+    padding: 0 5vw 12vh 5vw;
   }
-  @keyframes slideLine { to { left: 100%; } }
+  .hero-name { font-size: clamp(2.4rem, 9vw, 3.2rem); }
+  .hero-sub { font-size: 0.76rem; max-width: 100%; }
+  .hero-word { font-size: 6.5rem; right: -8px; bottom: -25px; }
+  .scroll-hint { left: 5vw; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── SECTIONS ─── */
-  section { padding: 120px 48px; position: relative; }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--deep-green);
-    margin-bottom: 60px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .section-label::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--sky-pink);
-    display: inline-block;
-  }
-
-  /* ─── MANIFESTO — 自然な日本語版 ─── */
-  .manifesto {
-    background: var(--warm-white);
-    padding: 120px 48px;
-    text-align: center;
-  }
-  .manifesto-line {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-    font-weight: 300;
-    line-height: 1.8;
-    letter-spacing: 0.06em;
-    color: var(--charcoal);
-    margin-bottom: 16px;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .manifesto-line.visible { opacity: 1; transform: translateY(0); }
-  .manifesto-line:last-child { margin-bottom: 0; }
-  /* 区切り点 */
-  .manifesto-dot {
-    display: block;
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--sky-pink);
-    margin: 20px auto;
-    opacity: 0;
-    transition: opacity 0.8s ease 0.3s;
-  }
-  .manifesto-dot.visible { opacity: 1; }
-
-  /* ─── DIVIDER ─── */
-  .divider { padding: 32px 0; background: var(--soft-green); overflow: hidden; }
-  .marquee-wrapper { overflow: hidden; display: flex; width: 100%; }
-  .divider-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--deep-green);
-    white-space: nowrap;
-    animation: marquee 20s linear infinite;
-    padding-right: 80px;
-  }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  /* ─── FEATURED — JS Project & Street Music のみ ─── */
-  .featured { background: var(--warm-white); padding: 100px 48px; }
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 48px;
-    margin-top: 40px;
-    max-width: 700px;
-  }
-  .featured-item { border-top: 1px solid var(--light-grey); padding-top: 24px; }
-  .featured-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--charcoal);
-    display: block;
-    margin-bottom: 8px;
-  }
-  .featured-desc {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  /* ─── WORK ─── */
-  .work { background: var(--charcoal); color: var(--warm-white); }
-  .work .section-label { color: var(--sky-pink); }
-  .work .section-label::before { background: var(--sage); }
-  .work-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.08); }
-  .work-item { padding: 48px 36px; background: var(--charcoal); transition: background 0.4s ease; cursor: pointer; position: relative; overflow: hidden; text-decoration: none; color: inherit; display: block; }
-  .work-item::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--sky-pink), var(--sage)); transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
-  .work-item:hover::before { transform: scaleX(1); }
-  .work-item:hover { background: rgba(255,255,255,0.04); }
-  .work-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--blush); letter-spacing: 0.2em; margin-bottom: 28px; opacity: 0.7; }
-  .work-icon { font-size: 1.8rem; margin-bottom: 20px; display: block; }
-  .work-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; line-height: 1.2; margin-bottom: 16px; color: var(--warm-white); }
-  .work-desc { font-size: 0.75rem; font-weight: 300; line-height: 1.8; color: rgba(250,248,245,0.5); }
-
-  /* ─── ABOUT ─── */
-  .about { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; background: var(--warm-white); }
-  .about-sticky { position: sticky; top: 120px; }
-
-  /* Sound finds its way home. + 日本語訳 */
-  .about-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--charcoal);
-    margin-bottom: 16px;
-  }
-  .about-headline em { font-style: italic; color: var(--blush); }
-
-  .about-headline-jp {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 0.88rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    color: var(--grey);
-    line-height: 1.8;
-    margin-bottom: 28px;
-    /* 細い上ラインで英語と区切る */
-    border-top: 1px solid var(--light-grey);
-    padding-top: 14px;
-    margin-top: 14px;
-  }
-
-  .about-name-tag { display: inline-block; padding: 8px 16px; border: 1px solid var(--sky-pink); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--grey); margin-top: 4px; }
-  .timeline { padding-left: 28px; border-left: 1px solid var(--light-grey); }
-  .timeline-item { margin-bottom: 48px; position: relative; opacity: 0; transform: translateX(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .timeline-item.visible { opacity: 1; transform: translateX(0); }
-  .timeline-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--sky-pink); border: 2px solid var(--warm-white); box-shadow: 0 0 0 1px var(--blush); }
-  .timeline-year { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--sage); margin-bottom: 8px; }
-  .timeline-text { font-size: 0.85rem; font-weight: 300; line-height: 1.9; color: var(--charcoal); }
-
-  /* ─── PHILOSOPHY — 日本語タイトル ─── */
-  .philosophy { background: var(--warm-white); padding: 140px 48px; }
-  .philosophy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 60px; margin-top: 40px; }
-  .philosophy-item h3 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    margin-bottom: 6px;
-    color: var(--charcoal);
-    letter-spacing: 0.04em;
-  }
-  .philosophy-item h3 span {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--sage);
-    font-weight: 300;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-  }
-  .philosophy-item p { font-size: 0.85rem; line-height: 1.9; font-weight: 300; color: var(--grey); }
-
-  /* ─── PRESS ─── */
-  .press { background: var(--charcoal); color: var(--warm-white); padding: 140px 48px; }
-  .press .section-label { color: var(--sky-pink); }
-  .press .section-label::before { background: var(--sage); }
-  .press-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; margin-top: 40px; }
-  .press-item { text-decoration: none; color: inherit; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px; transition: opacity 0.3s; display: block; }
-  .press-item:hover { opacity: 0.7; }
-  .press-source { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); display: block; margin-bottom: 10px; }
-  .press-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; margin-bottom: 10px; }
-  .press-desc { font-size: 0.8rem; line-height: 1.8; color: rgba(250,248,245,0.6); }
-
-  /* ─── VISION — 控えめ・やさしいフォント ─── */
-  .vision {
-    background: linear-gradient(160deg, var(--soft-green) 0%, var(--warm-white) 65%);
-    text-align: center;
-    padding: 160px 48px;
-  }
-
-  /* メインコピー — Shippori Minchoで控えめに */
-  .vision-quote {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    font-weight: 300;
-    line-height: 1.8;
-    letter-spacing: 0.1em;
-    color: var(--charcoal);
-    max-width: 640px;
-    margin: 0 auto 20px;
-    /* strongは使わず、色の変化で静かに強調 */
-  }
-  .vision-quote .accent { color: var(--deep-green); }
-
-  /* 細い区切り */
-  .vision-rule {
-    width: 40px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--sky-pink), var(--sage));
-    margin: 32px auto;
-  }
-
-  /* 本文 — 同じくShippori */
-  .vision-body {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 0.92rem;
-    font-weight: 300;
-    line-height: 2.2;
-    letter-spacing: 0.08em;
-    color: var(--grey);
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .vision-tags { display: flex; justify-content: center; gap: 12px; margin-top: 52px; flex-wrap: wrap; }
-  .tag { padding: 8px 20px; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--sage); color: var(--deep-green); border-radius: 100px; }
-
-  /* ─── FOOTER ─── */
-  footer { background: var(--charcoal); color: var(--warm-white); padding: 100px 48px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-  .footer-left .footer-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; line-height: 1.1; margin-bottom: 32px; letter-spacing: -0.02em; }
-  .footer-title em { font-style: italic; color: var(--sky-pink); }
-  .footer-contact-link { display: inline-flex; align-items: center; gap: 12px; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--sage); text-decoration: none; text-transform: uppercase; border-bottom: 1px solid rgba(122,171,150,0.3); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
-  .footer-contact-link:hover { color: var(--sky-pink); border-color: var(--blush); }
-  .footer-right { display: flex; flex-direction: column; justify-content: space-between; }
-  .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; list-style: none; }
-  .footer-links a { font-size: 0.8rem; font-weight: 300; color: rgba(250,248,245,0.5); text-decoration: none; transition: color 0.3s; }
-  .footer-links a:hover { color: var(--sky-pink); }
-  .footer-bottom { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 60px; padding-top: 32px; display: flex; justify-content: space-between; align-items: center; }
-  .footer-bottom p { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(250,248,245,0.3); }
-
-  /* ─── Responsive ─── */
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    section { padding: 80px 24px; }
-    .hero-left { width: 70%; padding: 0 0 0 6vw; }
-    .hero-word { font-size: 12rem; right: -30px; bottom: -60px; }
-    .featured-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
-    .work-grid { grid-template-columns: 1fr 1fr; }
-    .about { grid-template-columns: 1fr; }
-    .about-sticky { position: static; }
-    .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
-    .press-grid { grid-template-columns: 1fr 1fr; }
-    footer { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .hero-left { width: 90%; padding: 0 0 0 5vw; }
-    .hero-word { font-size: 7rem; right: -10px; bottom: -30px; }
-    .work-grid { grid-template-columns: 1fr; }
-    .featured-grid { grid-template-columns: 1fr; }
-    .press-grid { grid-template-columns: 1fr; }
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 0.58rem; }
-  }
-  /* ───── MOBILE NAV ───── */
-
-@media (max-width:900px){
-
-  .hamburger{
-    display:flex;
-  }
-
-  .nav-links{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:100%;
-    height:100vh;
-    background:rgba(10,10,10,0.96);
-    backdrop-filter:blur(10px);
-
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:40px;
-
-    transition:0.4s;
-  }
-
-  .nav-links.active{
-    right:0;
-  }
-
-  .nav-links a{
-    font-size:0.9rem;
-    letter-spacing:0.25em;
-  }
-
-}
-
-  /* ───── HAMBURGER ───── */
-
-.hamburger{
-  width:28px;
-  height:20px;
-  display:none;
-  flex-direction:column;
-  justify-content:space-between;
-  cursor:pointer;
-  z-index:200;
-}
-
-.hamburger span{
-  height:2px;
-  background:white;
-  width:100%;
-  transition:0.3s;
-}
-
-/* active animation */
-
-.hamburger.active span:nth-child(1){
-  transform:rotate(45deg) translate(5px,5px);
-}
-
-.hamburger.active span:nth-child(2){
-  opacity:0;
-}
-
-.hamburger.active span:nth-child(3){
-  transform:rotate(-45deg) translate(6px,-6px);
-}
-
-@media (max-width:600px){
-
-.hero{
-  align-items:flex-end;
-}
-
-.hero-left{
-  width:100%;
-  padding:0 6vw 12vh 6vw;
-}
-
-.hero-name{
-  font-size:2.6rem;
-}
-
-.hero-sub{
-  font-size:0.78rem;
-}
-
+  .manifesto { padding: 80px 20px; }
+  .work-grid { grid-template-columns: 1fr; }
+  .featured-grid { grid-template-columns: 1fr; }
+  .press-grid { grid-template-columns: 1fr; }
+  .vision { padding: 100px 20px; }
+  footer { padding: 72px 20px 48px; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
 }
 </style>
+
 <script type="application/ld+json">
 {
- "@context": "https://schema.org",
- "@type": "Person",
- "name": "Jung Sayaka",
- "alternateName": "Unica Anne",
- "url": "https://unicaanne.com",
- "image": "https://unicaanne.com/IMG_1280.PNG",
- "jobTitle": "Musician and Creative Technologist",
- "description": "Musician and creative technologist connecting music, technology, and community.",
- "knowsAbout": [
-   "Music Composition",
-   "Live Performance",
-   "Creative Technology",
-   "AI Web Development",
-   "Data Analytics"
- ],
- "worksFor": {
-   "@type": "Organization",
-   "name": "JS Project",
-   "url": "https://jsproject.jp"
- },
- "knowsLanguage": ["Japanese","English","Spanish"],
- "homeLocation": {
-   "@type": "Place",
-   "name": "Yamaguchi, Japan"
- }
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jung Sayaka",
+  "alternateName": "Unica Anne",
+  "url": "https://unicaanne.com",
+  "image": "https://unicaanne.com/IMG_1280.PNG",
+  "jobTitle": "Musician and Creative Technologist",
+  "description": "Musician and creative technologist connecting music, technology, and community.",
+  "knowsAbout": ["Music Composition","Live Performance","Creative Technology","AI Web Development","Data Analytics"],
+  "worksFor": { "@type": "Organization", "name": "JS Project", "url": "https://jsproject.jp" },
+  "knowsLanguage": ["Japanese","English","Spanish"],
+  "homeLocation": { "@type": "Place", "name": "Yamaguchi, Japan" }
 }
 </script>
 
@@ -727,39 +822,33 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-3KS9Z1BS2Z');
 </script>
-  
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav id="mainNav">
-
   <a href="#top" class="nav-logo" id="navLogo">UNICA ANNE</a>
 
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="hamburger" id="hamburger" aria-label="メニューを開く" role="button" tabindex="0">
+    <span></span><span></span><span></span>
   </div>
 
-  <ul class="nav-links" id="navLinks">
+  <ul class="nav-links" id="navLinks" role="navigation">
     <li><a href="#work">WORK</a></li>
     <li><a href="#about">ABOUT</a></li>
     <li><a href="#philosophy">PHILOSOPHY</a></li>
     <li><a href="#vision">VISION</a></li>
-    <li><a href="https://jsproject.jp/" target="_blank">STUDIO</a></li>
+    <li><a href="https://jsproject.jp/" target="_blank" rel="noopener">STUDIO</a></li>
     <li><a href="#contact">CONTACT</a></li>
   </ul>
-
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero" id="top">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
@@ -787,35 +876,35 @@
     </p>
     <p class="hero-studio">
       AIを活用したWeb制作スタジオ
-      <a class="studio-link" href="https://jsproject.jp/" target="_blank">JS Project</a>
+      <a class="studio-link" href="https://jsproject.jp/" target="_blank" rel="noopener">JS Project</a>
       を運営しています。
     </p>
   </div>
 
-  <div class="scroll-hint">
+  <div class="scroll-hint" aria-hidden="true">
     <span>Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- MANIFESTO — 自然な日本語 -->
-<section class="manifesto">
+<!-- ── MANIFESTO ── -->
+<section class="manifesto" aria-label="マニフェスト">
   <p class="manifesto-line">音楽は、場所と場所をつなぐ。</p>
-  <div class="manifesto-dot"></div>
+  <div class="manifesto-dot" aria-hidden="true"></div>
   <p class="manifesto-line">テクノロジーは、表現の可能性を広げる。</p>
-  <div class="manifesto-dot"></div>
+  <div class="manifesto-dot" aria-hidden="true"></div>
   <p class="manifesto-line">コミュニティが、響きあいを生み出す。</p>
 </section>
 
-<!-- MARQUEE -->
-<div class="divider">
+<!-- ── MARQUEE ── -->
+<div class="divider" aria-hidden="true">
   <div class="marquee-wrapper">
     <span class="divider-text">Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
-    <span class="divider-text">Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
+    <span class="divider-text" aria-hidden="true">Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp; Performance &nbsp;·&nbsp; Original Music &nbsp;·&nbsp; Eurhythmics &nbsp;·&nbsp; Web Design &nbsp;·&nbsp; Data Analytics &nbsp;·&nbsp; Buenos Aires &nbsp;·&nbsp; México &nbsp;·&nbsp;</span>
   </div>
 </div>
 
-<!-- FEATURED — JS Project & Street Music のみ -->
+<!-- ── FEATURED ── -->
 <section class="featured">
   <p class="section-label">Selected Work</p>
   <div class="featured-grid">
@@ -830,38 +919,38 @@
   </div>
 </section>
 
-<!-- WORK -->
+<!-- ── WORK ── -->
 <section class="work" id="work">
   <p class="section-label">What I Do</p>
   <div class="work-grid">
     <div class="work-item">
       <div class="work-num">01</div>
-      <span class="work-icon">♪</span>
+      <span class="work-icon" aria-hidden="true">♪</span>
       <h3 class="work-title">Live<br>Performance</h3>
       <p class="work-desc">自作曲を中心とした演奏活動。音楽と空間が交差する、ライブという一回限りの体験を届けます。</p>
     </div>
     <div class="work-item">
       <div class="work-num">02</div>
-      <span class="work-icon">◎</span>
+      <span class="work-icon" aria-hidden="true">◎</span>
       <h3 class="work-title">Music<br>Projects</h3>
       <p class="work-desc">8歳からの鍵盤、12歳からの作曲。アルゼンチン・メキシコの音楽体験が溶け込んだオリジナル作品を制作しています。</p>
     </div>
     <div class="work-item">
       <div class="work-num">03</div>
-      <span class="work-icon">∿</span>
+      <span class="work-icon" aria-hidden="true">∿</span>
       <h3 class="work-title">Eurhythmics<br>Study</h3>
       <p class="work-desc">リトミックを学びながら、音楽教育と身体表現の融合を探求。音を感じ、動かす喜びを広めたい。</p>
     </div>
-    <a href="https://jsproject.jp/" class="work-item" target="_blank">
+    <a href="https://jsproject.jp/" class="work-item" target="_blank" rel="noopener">
       <div class="work-num">04</div>
-      <span class="work-icon">⌗</span>
+      <span class="work-icon" aria-hidden="true">⌗</span>
       <h3 class="work-title">AI Web<br>Studio</h3>
       <p class="work-desc">AIを活用したオーダーメイドのホームページ制作。アーティスト・カフェ・個人事業主向けのWeb制作を行っています。</p>
     </a>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ── ABOUT ── -->
 <section class="about" id="about">
   <div class="about-sticky">
     <p class="section-label">Profile</p>
@@ -869,7 +958,6 @@
       Sound<br>finds its<br>
       <em>way home.</em>
     </h2>
-    <!-- 日本語訳 — 細い区切りラインの下に静かに添える -->
     <p class="about-headline-jp">
       音はいつか、<br>帰る場所を見つける。
     </p>
@@ -907,7 +995,7 @@
   </div>
 </section>
 
-<!-- PHILOSOPHY — 日本語タイトル -->
+<!-- ── PHILOSOPHY ── -->
 <section class="philosophy" id="philosophy">
   <p class="section-label">Philosophy</p>
   <div class="philosophy-grid">
@@ -926,26 +1014,26 @@
   </div>
 </section>
 
-<!-- PRESS -->
+<!-- ── PRESS ── -->
 <section class="press">
   <p class="section-label">Press / Media</p>
   <div class="press-grid">
-    <a href="https://open.spotify.com/intl-ja/track/3plf7jbnak5FGuBFv5CggE?si=b62ee0c2ab7e4e94" class="press-item">
+    <a href="https://open.spotify.com/intl-ja/track/3plf7jbnak5FGuBFv5CggE?si=b62ee0c2ab7e4e94" class="press-item" target="_blank" rel="noopener">
       <span class="press-source">Spotify</span>
       <h3 class="press-title">Original Music Release</h3>
       <p class="press-desc">Unica Anneとして制作した楽曲を配信。</p>
     </a>
-    <a href="https://youtube.com/@unicaanne" target="_blank" class="press-item">
+    <a href="https://youtube.com/@unicaanne" target="_blank" rel="noopener" class="press-item">
       <span class="press-source">YouTube</span>
       <h3 class="press-title">Live Performance</h3>
       <p class="press-desc">ピアノと歌によるライブ演奏。</p>
     </a>
-    <a href="https://www.instagram.com/sayaka____j" class="press-item">
+    <a href="https://www.instagram.com/sayaka____j" target="_blank" rel="noopener" class="press-item">
       <span class="press-source">Instagram</span>
       <h3 class="press-title">Creative Process</h3>
       <p class="press-desc">制作過程や日常の音楽活動。</p>
     </a>
-    <a href="https://jsproject.jp/" target="_blank" class="press-item">
+    <a href="https://jsproject.jp/" target="_blank" rel="noopener" class="press-item">
       <span class="press-source">Studio</span>
       <h3 class="press-title">JS Project</h3>
       <p class="press-desc">AIを活用したWeb制作スタジオ。</p>
@@ -953,27 +1041,21 @@
   </div>
 </section>
 
-<!-- VISION -->
+<!-- ── VISION ── -->
 <section class="vision" id="vision">
   <p class="section-label" style="justify-content:center;">Vision</p>
-
-  <!-- メインコピー — 控えめ・Shippori Mincho -->
   <p class="vision-quote">
     音楽と<span class="accent">テクノロジー</span>で、<br>
     地域に彩りを。
   </p>
-
-  <div class="vision-rule"></div>
-
-  <!-- 本文 — 同じくShippori、やわらかく -->
+  <div class="vision-rule" aria-hidden="true"></div>
   <p class="vision-body">
     外から見えた、地域の持つ豊かさと可能性。<br>
     南米での暮らしが教えてくれたのは、<br>
     音楽が場所と人をつなぐ力です。<br><br>
     Unica Anne として、その力を地域に還したい。
   </p>
-
-  <div class="vision-tags">
+  <div class="vision-tags" aria-label="キーワード">
     <span class="tag">Music × Tech</span>
     <span class="tag">Local × Global</span>
     <span class="tag">Sound × Community</span>
@@ -981,28 +1063,28 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer id="contact">
   <div class="footer-left">
     <h2 class="footer-title">
-      Let's<br>
-      <em>connect.</em>
+      Let's<br><em>connect.</em>
     </h2>
-    <p style="font-size:0.78rem;font-weight:300;color:rgba(250,248,245,0.45);line-height:1.9;margin-bottom:32px;max-width:320px;">
+    <p style="font-size:0.77rem;font-weight:300;color:rgba(250,248,245,0.42);line-height:1.95;margin-bottom:30px;max-width:300px;">
       ライブのご依頼、Web制作のご相談、<br>
       リトミックや音楽に関するお問い合わせなど、<br>
       お気軽にご連絡ください。
     </p>
-    <a href="mailto:hello@unicaanne.com" class="footer-contact-link">hello@unicaanne.com →</a>
+    <!-- スパム対策：JS でメールアドレスを組み立て -->
+    <a href="#" class="footer-contact-link" id="mailLink">hello@unicaanne.com →</a>
   </div>
   <div class="footer-right">
     <ul class="footer-links">
       <li><a href="#work">Works</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#vision">Vision</a></li>
-      <li><a href="https://www.instagram.com/sayaka____j">Instagram</a></li>
-      <li><a href="https://jsproject.jp/" target="_blank">AI Web Studio</a></li>
-      <li><a href="https://youtube.com/@unicaanne" target="_blank">YouTube</a></li>
+      <li><a href="https://www.instagram.com/sayaka____j" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://jsproject.jp/" target="_blank" rel="noopener">AI Web Studio</a></li>
+      <li><a href="https://youtube.com/@unicaanne" target="_blank" rel="noopener">YouTube</a></li>
     </ul>
   </div>
   <div class="footer-bottom">
@@ -1012,11 +1094,15 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+/* ════════════════════════════════
+   カスタムカーソル（デスクトップのみ）
+════════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
+// hover:hover かつ pointer:fine のデバイスのみ起動
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX; mouseY = e.clientY;
     cursor.style.left = mouseX + 'px';
@@ -1029,10 +1115,9 @@
     ring.style.top  = ringY + 'px';
     requestAnimationFrame(animateRing);
   })();
-
   document.querySelectorAll('a, button, .work-item').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.4)';
       cursor.style.background = 'var(--blush)';
       ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
     });
@@ -1042,62 +1127,94 @@
       ring.style.transform = 'translate(-50%,-50%) scale(1)';
     });
   });
+}
 
-  // Timeline + manifesto reveal
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), 80 * i);
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.timeline-item, .manifesto-line, .manifesto-dot').forEach(el => revealObserver.observe(el));
-
-  // Nav scroll
-  const nav      = document.getElementById('mainNav');
-  const navLogo  = document.getElementById('navLogo');
-  const navLinks = document.getElementById('navLinks');
-  window.addEventListener('scroll', () => {
-    const s = window.scrollY > 80;
-    nav.style.background     = s ? 'rgba(250,248,245,0.93)' : 'transparent';
-    nav.style.backdropFilter = s ? 'blur(14px)' : 'none';
-    nav.style.borderBottom   = s ? '1px solid var(--light-grey)' : 'none';
-    navLogo.classList.toggle('scrolled', s);
-    navLinks.classList.toggle('scrolled', s);
+/* ════════════════════════════════
+   スクロール reveal
+════════════════════════════════ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting)
+      setTimeout(() => entry.target.classList.add('visible'), 75 * i);
   });
+}, { threshold: 0.12 });
 
-  // Parallax
-  const heroBg = document.getElementById('heroBg');
-  window.addEventListener('scroll', () => {
-    heroBg.style.transform = `translateY(${window.scrollY * 0.15}px)`;
-  });
+document.querySelectorAll(
+  '.timeline-item, .manifesto-line, .manifesto-dot'
+).forEach(el => revealObs.observe(el));
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ════════════════════════════════
+   ナビ スクロール変化
+════════════════════════════════ */
+const nav       = document.getElementById('mainNav');
+const navLogo   = document.getElementById('navLogo');
+const navLinks  = document.getElementById('navLinks');
+const hamburger = document.getElementById('hamburger');
 
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.getElementById("navLinks");
+window.addEventListener('scroll', () => {
+  const s = window.scrollY > 80;
+  nav.style.background     = s ? 'rgba(250,248,245,0.94)' : 'transparent';
+  nav.style.backdropFilter = s ? 'blur(14px)' : 'none';
+  nav.style.borderBottom   = s ? '1px solid var(--light-grey)' : 'none';
+  navLogo.classList.toggle('scrolled', s);
+  navLinks.classList.toggle('scrolled', s);
+  hamburger.classList.toggle('scrolled', s);
+}, { passive: true });
 
-  hamburger.addEventListener("click", () => {
-
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-
-  });
-
-  document.querySelectorAll(".nav-links a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      hamburger.classList.remove("active");
-      navMenu.classList.remove("active");
-
-    });
-
-  });
-
+/* ════════════════════════════════
+   ハンバーガーメニュー
+════════════════════════════════ */
+hamburger.addEventListener('click', () => {
+  const isOpen = hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active', isOpen);
+  hamburger.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+  // メニュー開放中はスクロール禁止
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
+
+// リンククリックでメニューを閉じる
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+});
+
+// Escキーでも閉じる
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+/* ════════════════════════════════
+   パララックス（reduced-motion 考慮）
+════════════════════════════════ */
+const heroBg = document.getElementById('heroBg');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReduced) {
+  window.addEventListener('scroll', () => {
+    heroBg.style.transform = `translateY(${window.scrollY * 0.14}px)`;
+  }, { passive: true });
+}
+
+/* ════════════════════════════════
+   メールスパム対策
+   mailto を JS で生成してボットに拾わせない
+════════════════════════════════ */
+(function() {
+  const u = 'hello';
+  const d = 'unicaanne.com';
+  const link = document.getElementById('mailLink');
+  if (link) {
+    link.href = 'mailto:' + u + '@' + d;
+  }
+})();
 </script>
-
-
 
 </body>
 </html>
