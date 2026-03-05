@@ -144,15 +144,17 @@ nav.solid .hamburger span { background: var(--ink); }
 @media (max-width: 860px) {
   .hamburger { display: flex; }
   .nav-links {
-    position: fixed; inset: 0;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
     background: rgba(18,16,14,.97);
     backdrop-filter: blur(10px);
     flex-direction: column;
     justify-content: center; align-items: center; gap: 40px;
-    right: -100%; left: auto; width: 100%;
-    transition: right .38s cubic-bezier(.4,0,.2,1);
+    transform: translateX(100%);
+    transition: transform .38s cubic-bezier(.4,0,.2,1);
+    z-index: 499;
   }
-  .nav-links.open { right: 0; }
+  .nav-links.open { transform: translateX(0); }
   .nav-links a {
     font-size: .9rem; letter-spacing: .3em;
     color: rgba(255,255,255,.8) !important; opacity: 1 !important;
@@ -318,9 +320,10 @@ nav.solid .hamburger span { background: var(--ink); }
 }
 .manifesto-line {
   font-family: var(--mincho);
-  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
-  font-weight: 300; letter-spacing: .1em; line-height: 1.85;
+  font-size: clamp(1.1rem, 4vw, 2.1rem);
+  font-weight: 300; line-height: 1.85;
   color: var(--ink);
+  white-space: nowrap;
   opacity: 0; transform: translateY(12px);
   transition: opacity .8s ease, transform .8s ease;
 }
@@ -655,6 +658,7 @@ footer {
   .hero-name { font-size: clamp(2.6rem, 10vw, 3.4rem); }
   .hero-ghost { font-size: 6rem; right: -8px; bottom: -20px; }
   .manifesto { padding: 80px 24px; }
+  .manifesto-line { white-space: normal; font-size: clamp(1rem, 5vw, 1.3rem); }
   .featured { padding: 80px 24px; }
   .featured-grid { grid-template-columns: 1fr; }
   .featured-item:first-child { border-right: none; border-bottom: 1px solid var(--mist); }
@@ -748,7 +752,7 @@ footer {
 
 <!-- MANIFESTO -->
 <section class="manifesto" aria-label="マニフェスト">
-  <p class="manifesto-line">音楽は、場所と場所をつなぐ。</p>
+  <p class="manifesto-line">音楽は、見えない線を越えていく。</p>
   <div class="manifesto-dot" aria-hidden="true"></div>
   <p class="manifesto-line">テクノロジーは、表現の可能性を広げる。</p>
   <div class="manifesto-dot" aria-hidden="true"></div>
@@ -788,7 +792,7 @@ footer {
       <div class="work-num">01</div>
       <span class="work-icon" aria-hidden="true">♪</span>
       <h3 class="work-title">Live<br>Performance</h3>
-      <p class="work-desc">自作曲を中心とした演奏活動。音楽と空間が交差する、ライブという一回限りの体験を届けます。</p>
+      <p class="work-desc">オリジナル曲を中心とした演奏活動。音楽と空間が交差する、ライブという一回限りの体験を届けます。</p>
     </div>
     <div class="work-item">
       <div class="work-num">02</div>
@@ -806,7 +810,7 @@ footer {
       <div class="work-num">04</div>
       <span class="work-icon" aria-hidden="true">⌗</span>
       <h3 class="work-title">AI Web<br>Studio</h3>
-      <p class="work-desc">AIを活用したオーダーメイドのホームページ制作。アーティスト・カフェ・個人事業主向けのWeb制作を行っています。</p>
+      <p class="work-desc">AIを活用したオーダーメイドのホームページ制作。アーティスト・カフェ・個人事業主・中小企業向けのWeb制作を行っています。</p>
     </a>
   </div>
 </section>
@@ -825,7 +829,7 @@ footer {
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-year">幼少期</div>
-      <p class="timeline-text">幼い頃から楽器に囲まれて育ち、<strong>8歳よりピアノ</strong>を学ぶ。12歳のとき、作曲という行為が「音楽は自分でつくれる」という扉を開いた。</p>
+      <p class="timeline-text">幼い頃から自由に音楽に触れて育ち、<strong>8歳よりピアノ</strong>を学ぶ。12歳のとき、作曲という行為が「音楽は自分でつくれる」という扉を開いた。</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-year">16歳</div>
@@ -841,7 +845,7 @@ footer {
     </div>
     <div class="timeline-item">
       <div class="timeline-year">帰国後</div>
-      <p class="timeline-text"><strong>ITエンジニア → データアナリスト</strong>として国内で活躍。テクノロジーを音楽と同じ「表現の道具」として扱う感覚を育てる。</p>
+      <p class="timeline-text"><strong>ITエンジニア → データアナリスト</strong>として国内で従事。テクノロジーを音楽と同じ「表現の道具」として扱う感覚を育てる。</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-year">現在</div>
@@ -860,7 +864,7 @@ footer {
   <div class="philosophy-grid">
     <div class="philosophy-item">
       <h3>音と場所<span>Sound & Place</span></h3>
-      <p>音楽は場所と人をつなぐ。南米での経験は、音楽が文化や言語を超えて人を結びつける力を持つことを教えてくれました。</p>
+      <p>音楽は場所と人をつなぐ。南米での経験は、音楽が文化や言語や時間を超えて人を結びつける力を持つことを教えてくれました。</p>
     </div>
     <div class="philosophy-item">
       <h3>技術は表現だ<span>Technology as Expression</span></h3>
@@ -868,7 +872,7 @@ footer {
     </div>
     <div class="philosophy-item">
       <h3>地域と世界<span>Local & Global</span></h3>
-      <p>海外での経験を通して、地元の価値を外側から見る視点を得ました。音楽とテクノロジーを通して地域に新しい可能性を生み出したい。</p>
+      <p>海外での経験を通して、ふるさとの価値を外側から見る視点を得ました。音楽とテクノロジーを通して地域に新しい可能性を生み出したい。</p>
     </div>
   </div>
 </section>
@@ -884,8 +888,8 @@ footer {
     </a>
     <a href="https://youtube.com/@unicaanne" class="press-item" target="_blank" rel="noopener">
       <span class="press-source">YouTube</span>
-      <h3 class="press-title">Live Performance</h3>
-      <p class="press-desc">ピアノと歌によるライブ演奏。</p>
+      <h3 class="press-title">Performance</h3>
+      <p class="press-desc">弾き語りやオリジナル&カバーソング。</p>
     </a>
     <a href="https://www.instagram.com/sayaka____j" class="press-item" target="_blank" rel="noopener">
       <span class="press-source">Instagram</span>
@@ -925,13 +929,15 @@ footer {
 <!-- FOOTER -->
 <footer id="contact">
   <div>
-    <h2 class="footer-title">Let's<br><em>connect.</em></h2>
+    <h2 class="footer-title">Find<br><em>me.</em></h2>
     <p class="footer-sub">
       ライブのご依頼、Web制作のご相談、<br>
-      リトミックや音楽に関するお問い合わせなど、<br>
+      リトミックや音楽制作に関するお問い合わせなど、<br>
       お気軽にご連絡ください。
     </p>
-    <a href="#" class="footer-mail" id="mailLink">hello@unicaanne.com →</a>
+    <a href="mailto:jsproject0701@gmail.com" class="footer-mail">
+jsproject0701@gmail.com →
+</a>
   </div>
   <div class="footer-right">
     <ul class="footer-links">
@@ -949,7 +955,7 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* カスタムカーソル */
 const cursor = document.getElementById('cursor');
 const ring   = document.getElementById('cursorRing');
@@ -1020,7 +1026,7 @@ if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
 /* Mail */
 (function(){
   const el=document.getElementById('mailLink');
-  if(el) el.href='mailto:hello@unicaanne.com';
+  if(el) el.href='mailto:jsproject0701@gmail.com';
 })();
 
 /* GA outbound */
@@ -1030,10 +1036,4 @@ document.querySelectorAll('a').forEach(a=>{
     if(u.includes('spotify'))   gtag('event','click_spotify',  {event_category:'outbound'});
     if(u.includes('youtube'))   gtag('event','click_youtube',  {event_category:'outbound'});
     if(u.includes('instagram')) gtag('event','click_instagram',{event_category:'outbound'});
-    if(u.includes('jsproject')) gtag('event','click_jsproject',{event_category:'outbound'});
-    if(u.includes('mailto'))    gtag('event','click_email',    {event_category:'contact'});
-  });
-});
-</script>
-</body>
-</html>
+    if(u.includes('j
