@@ -137,16 +137,14 @@ color:var(--deep-green);
   }
 }
 
-  .hero-left{
+ .hero-left{
 
-  position:absolute;
+left:8vw;
+bottom:16vh;
 
-  left:8vw;
-  bottom:12vh;
+max-width:520px;
 
-  max-width:520px;
-
-  z-index:3;
+z-index:3;
 }
 
   .hero-tag{
@@ -159,30 +157,37 @@ color:var(--deep-green);
 }
 
 .hero-name{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(4rem, 8vw, 7rem);
-  font-weight: 300;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--charcoal);
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(4rem,8vw,7rem);
+font-weight:300;
+line-height:0.95;
+letter-spacing:-0.02em;
 
-  opacity:0;
-  transform:translateY(30px);
+color:var(--charcoal);
 
-  animation:heroFade 1.4s ease forwards;
-  animation-delay:0.4s;
+text-shadow:
+0 1px 0 rgba(255,255,255,0.35),
+0 8px 30px rgba(0,0,0,0.12);
+
+opacity:0;
+transform:translateY(30px);
+animation:heroFade 1.4s ease forwards;
+animation-delay:0.4s;
 }
 
 .hero-name em{
-  font-style: italic;
-  color: var(--blush);
-  display:block;
+font-style:italic;
+color:var(--blush);
+display:block;
 
-  opacity:0;
-  transform:translateY(40px);
+opacity:0.9;
 
-  animation:heroFade 1.4s ease forwards;
-  animation-delay:0.8s;
+text-shadow:
+0 4px 20px rgba(0,0,0,0.12);
+
+transform:translateY(40px);
+animation:heroFade 1.4s ease forwards;
+animation-delay:0.8s;
 }
 
   @keyframes heroFade{
@@ -900,6 +905,32 @@ margin-bottom:20px;
 .manifesto-line:last-child{
 margin-bottom:0;
 }
+
+.studio-link{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:0.9rem;
+
+letter-spacing:0.08em;
+
+color:var(--deep-green);
+
+text-decoration:none;
+
+border-bottom:1px solid rgba(74,124,106,0.35);
+
+padding-bottom:2px;
+
+transition:opacity 0.3s;
+
+}
+
+.studio-link:hover{
+
+opacity:0.6;
+
+}
 </style>
 <script type="application/ld+json">
 {
@@ -985,9 +1016,14 @@ Unica Anne<br>
     </span><br><br>
     
     AIを活用したWeb制作スタジオ
-       <a href="https://jsproject.jp/" target="_blank">
-      <strong>JS Project</strong>も運営しています。
-      </a>
+       <a class="studio-link"
+href="https://jsproject.jp/"
+target="_blank">
+
+JS Project
+
+</a>
+も運営しています。
   </p>
 
     <div class="scroll-hint">
@@ -1010,7 +1046,7 @@ Technology expands expression.
 </p>
 
 <p class="manifesto-line">
-Community creates resonance.
+Communities create resonance.
 </p>
 
 </section>
