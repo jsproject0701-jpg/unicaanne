@@ -97,14 +97,11 @@
   .nav-links a:hover { opacity: 1; color: var(--deep-green); }
 
   /* Hero */
-  .hero {
-    min-height: 100vh;
-    position:relative;
-    min-height:100vh;
-    overflow:hidden;
-    position: relative;
-    overflow: hidden;
-  }
+  .hero{
+  position:relative;
+  min-height:100vh;
+  overflow:hidden;
+}
 
   .hero-bg{
 
@@ -202,11 +199,6 @@
   .hero-sub span {
     color: var(--deep-green);
     font-weight: 400;
-  }
-
-  .hero-right {
-    position: relative;
-    overflow: hidden;
   }
 
   @keyframes gradientShift {
@@ -681,29 +673,6 @@
     .nav-links a { font-size: 0.6rem; }
   }
 
-  .hero-photo{
-  position:absolute;
-
-  bottom:80px;
-  right:120px;
-
-  width:340px;
-
-  border-radius:8px;
-
-  box-shadow:
-    0 30px 60px rgba(0,0,0,0.18);
-
-  object-fit:cover;
-
-  filter:
-  contrast(105%)
-  brightness(105%);
-
-  z-index:3;
-
-  clip-path: inset(0 0 60px 0);
-}
 
 .circle{
   border:1px solid rgba(0,0,0,0.05);
@@ -740,33 +709,39 @@
 
 <!-- HERO -->
 <section class="hero">
+
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+
+  <div class="hero-circles">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <div class="hero-word">Sound</div>
+
   <div class="hero-left">
     <p class="hero-tag">Musician · Creator · Community Builder</p>
+
     <h1 class="hero-name">
       Unica<br>
       <em>Anne</em>
     </h1>
+
     <p class="hero-sub">
       音楽とテクノロジーを橋渡しに、<br>
       <span>地域に新しい彩りを。</span><br><br>
       Jung Sayaka — composer, performer,<br>
       and weaver of sound &amp; place.
     </p>
+
     <div class="scroll-hint">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-bg"></div>
-    <div class="hero-noise"></div>
-    <div class="hero-circles">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-    <div class="hero-word">Sound</div>
-  </div>
+
 </section>
 
 <!-- MARQUEE DIVIDER -->
@@ -965,14 +940,7 @@
       nav.style.borderBottom = 'none';
     }
   });
-window.addEventListener("scroll", () => {
 
-  const scroll = window.scrollY
-  const bg = document.querySelector(".hero-bg")
-
-  bg.style.transform = `translateY(${scroll * 0.15}px)`
-
-})
 
 // Hero parallax
 const heroBg = document.querySelector(".hero-bg");
@@ -981,7 +949,7 @@ window.addEventListener("scroll", () => {
 
   const scroll = window.scrollY;
 
-  heroBg.style.transform = `translateY(${scroll * 0.2}px)`;
+  heroBg.style.transform = `translateY(${scroll * 0.18}px)`;
 
 });
 </script>
