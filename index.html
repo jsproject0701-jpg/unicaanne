@@ -117,8 +117,8 @@ color:var(--deep-green);
 
   background-image:
     linear-gradient(
-      rgba(250,248,245,0.35),
-      rgba(250,248,245,0.65)
+      rgba(250,248,245,0.45),
+      rgba(250,248,245,0.75)
     ),
     url("images/IMG_1280.PNG");
 
@@ -157,38 +157,42 @@ z-index:3;
 }
 
 .hero-name{
+
 font-family:'Cormorant Garamond',serif;
 font-size:clamp(4rem,8vw,7rem);
 font-weight:300;
+
 line-height:0.95;
 letter-spacing:-0.02em;
 
-color:var(--charcoal);
+color:#222;
 
 text-shadow:
-0 1px 0 rgba(255,255,255,0.35),
-0 8px 30px rgba(0,0,0,0.12);
+
+0 2px 6px rgba(255,255,255,0.35),
+0 12px 40px rgba(0,0,0,0.15);
 
 opacity:0;
 transform:translateY(30px);
+
 animation:heroFade 1.4s ease forwards;
 animation-delay:0.4s;
-}
 
+}
 .hero-name em{
 font-style:italic;
-color:var(--blush);
 display:block;
 
+color:#e2a4b2;
 opacity:0.9;
-
 text-shadow:
-0 4px 20px rgba(0,0,0,0.12);
+0 6px 25px rgba(0,0,0,0.12);
 
 transform:translateY(40px);
 animation:heroFade 1.4s ease forwards;
 animation-delay:0.8s;
 }
+
 
   @keyframes heroFade{
   to{
@@ -931,6 +935,40 @@ transition:opacity 0.3s;
 opacity:0.6;
 
 }
+.studio-link{
+
+font-family:'Cormorant Garamond',serif;
+
+color:var(--deep-green);
+
+text-decoration:none;
+
+border-bottom:1px solid rgba(74,124,106,0.35);
+
+padding-bottom:2px;
+
+transition:opacity 0.3s;
+
+}
+
+.studio-link:hover{
+
+opacity:0.6;
+
+}
+.hero-jp{
+
+margin-top:10px;
+
+}
+
+.hero-studio{
+
+margin-top:10px;
+
+font-size:0.8rem;
+
+}
 </style>
 <script type="application/ld+json">
 {
@@ -1008,23 +1046,28 @@ Unica Anne<br>
   
 
  <p class="hero-sub">
-    Jung Sayaka — composer, performer,<br>
-    and creative technologist weaving sound and place.<br><br>
-    
-    <span>
-    音楽・テクノロジー・コミュニティをつなぐクリエイター。
-    </span><br><br>
-    
-    AIを活用したWeb制作スタジオ
-       <a class="studio-link"
-href="https://jsproject.jp/"
-target="_blank">
 
+Jung Sayaka — composer, performer and creative technologist<br>
+weaving sound and place.
+
+</p>
+
+<p class="hero-sub hero-jp">
+
+音楽・テクノロジー・コミュニティをつなぐクリエイター。
+
+</p>
+
+<p class="hero-sub hero-studio">
+
+AIを活用したWeb制作スタジオ  
+<a class="studio-link" href="https://jsproject.jp/" target="_blank">
 JS Project
-
 </a>
-も運営しています。
-  </p>
+を運営しています。
+
+</p>
+    
 
     <div class="scroll-hint">
       <span>Scroll</span>
